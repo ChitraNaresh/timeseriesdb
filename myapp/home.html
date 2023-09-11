@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <h1>Hi</h1>
+    <p id="likes">hello</p>
+    <button id="button">increase</button>
+    <input />
+  </body>
+
+  <socket src="https://cdn.socket.io/4.5.4/socket.io.min.js"></socket>
+  <script>
+    const socket = io("http://127.0.0.1:3000");
+
+    socket.on("connect", () => {
+      console.log("Connected");
+    });
+
+    const btn = document.getElementById("button");
+    const likes = document.getElementById("likes");
+
+    btn.addEventListener("click", () => {
+      socket.emit("liked");
+      likes.textContent = "hey";
+    });
+
+    socket.on("likeupdate", (count) => {
+      likes.textContent = count;
+    });
+  </script>
+</html>
